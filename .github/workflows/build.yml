@@ -23,15 +23,13 @@ jobs:
           cache: true
 
       - name: Check Flutter
-        run: |
-          flutter --version
-          dart --version
+        run: flutter --version
 
-      - name: Create Android project if missing
-        run: |
-          if [ ! -d "android" ]; then
-            flutter create --platforms=android --org com.filex.app .
-          fi
+      - name: Remove stale generated Android project
+        run: rm -rf android
+
+      - name: Create fresh Android project
+        run: flutter create --platforms=android --org com.filex.app .
 
       - name: Get dependencies
         run: flutter pub get
